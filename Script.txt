@@ -1,0 +1,47 @@
+22 / 02 / 2025
+นายธนกร รักคำ
+
+Stage 1
+12:25 น.: sudo apt install nginx
+12:41 น.: sudo vim index.html
+12:45 น.: cd etc/nginx/sites-enabled
+12:45 น.: sudo vim default
+
+Stage 2
+14:25 น.: docker build -t my-app:v1 .
+14:30 น.: docker run --name my-app -d -p 8080:80 my_app:v1
+14:39 น.: docker compose up -d
+
+Stage 3
+22:44 น.: docker tag my-app:v1 thanakorng/my-app:v1
+22:50 น.: kubectl apply -f my-app-deployment.yaml
+22:55 น.: kubectl apply -f my-service.yaml
+23:01 น.: kubectl apply -f nodeport-service.yaml
+23:05 น.: docker build -t thanakorng/my-app:v2 .
+23:05 น.: docker push
+23:08 น.: kubectl set image deployment web-app-deployment web-app=thanakorng/my-app:v2
+23:09 น.: kubectl rollout undo deployment web-app-deployment
+23:13 น.: kubectl scale deployment/web-app-deployment --replicas=10
+
+Stage 4
+11:31 น.: git init
+11:31 น.: git remote add origin ${remote_repository}
+11:31 น.: git branch -M main
+11:32 น.: git add index.html
+11:32 น.: git commit -m "Webapp v1"
+11:33 น.: git push origin main
+11:47 น.: kubectl apply -f git-sync-deployment.yaml 
+11:59 น.: kubectl apply -f git-sync-deployment.yaml 
+12:05 น.: kubectl apply -f git-sync-service.yaml 
+12:26 น.: kubectl apply -f git-sync-deployment.yaml
+12:34 น.: git add index.html
+12:35 น.: git commit -m "Webapp v2"
+12:35 น.: git push
+12:37 น.: git reset --hard 56b86b5cfb0973b36ed2a33ac5b4bf82d7d3b9a5
+12:37 น.: git push --force origin main
+
+Stage 7
+21:25 น.: apt-get update
+21:25 น.: snap install k8s --classic
+21:30 น.: snap install kubectl --classic
+

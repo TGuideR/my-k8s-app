@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: web-app-deployment
+
+  labels:
+
+    app: my-app
+
+spec:
+
+  replicas: 5
+
+  selector:
+
+    matchLabels:
+
+      app: my-app
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: my-app
+
+    spec:
+
+      containers:
+
+        - name: web-app
+
+          image: thanakorng/my-app:v1
+
+          ports:
+
+           - containerPort: 80

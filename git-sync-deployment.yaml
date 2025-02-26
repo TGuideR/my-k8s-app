@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: git-sync-deployment
+  labels:
+    app: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: web-app
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: git-volume
+              mountPath: /usr/share/nginx/
+
+        - name: git-sync
+          image: registry.k8s.io/git-sync/git-sync:v4.1.0
+          args:
+            - --repo=https://github.com/TGuideR/my-k8s-app.git
+            - --branch=main
+            - --wait=10
+            - --root=/data/git-clone
+            - --dest=html
+          volumeMounts:
+            - name: git-volume
+              mountPath: /data/git-clone
+
+      volumes:
+        - name: git-volume
+          emptyDir: {}
