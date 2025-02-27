@@ -13,3 +13,12 @@ img.picture
     margin-left: auto;
     margin-right: auto;
 }
+
+div.box
+{
+    background-color: lightblue;
+    margin-right: 150px;
+    margin-left: 150px;
+    padding: 15px;
+    border-radius: 20px;
+}
